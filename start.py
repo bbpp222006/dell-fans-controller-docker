@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import traceback
 
@@ -23,12 +24,21 @@ if __name__ == '__main__':
     if password is None:
         raise RuntimeError('PASSWORD environment variable not set')
 
-    while True:
+    client = FanController(host=host, username=username, password=password, temperature=temperature)
+    
+    try:
+        while True:
+            try:
+                client.run()
+                time.sleep(5)
+            except Exception as err:
+                logger.error(f'run controller failed {err}. {traceback.format_exc()}')
+                time.sleep(5)
+
+    except (KeyboardInterrupt, SystemExit):
+        logger.info("Exiting program... setting fan speed to 20%")
         try:
-            client = FanController(host=host, username=username, password=password,temperature = temperature)
-            client.run()
-            time.sleep(5)
-        except Exception as err:
-            logger.error(
-                f'run controller failed {err}. {traceback.format_exc()}'
-            )
+            client.set_fan_speed(20)
+        except Exception as e:
+            logger.error(f"Failed to set fan speed on exit: {e}")
+        sys.exit(0)
