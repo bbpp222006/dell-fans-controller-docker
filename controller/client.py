@@ -4,7 +4,7 @@ from controller.ipmi import IpmiTool
 
 
 class FanController:
-    def __init__(self, host: str, username: str, password: str,temperature: int,):
+    def __init__(self, host: str, username: str, password: str,temperature: int):
         self.host = host
         self.username = username
         self.password = password
