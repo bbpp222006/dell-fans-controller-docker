@@ -1,5 +1,4 @@
 FROM ubuntu:22.04
-LABEL maintainer="joestar817@foxmail.com"
 
 
 RUN apt update && apt install -y \

@@ -64,9 +64,9 @@ class IpmiTool:
         :param speed:
         :return:
         """
-        if speed < 10 or speed > 100:
+        if speed < 1 or speed > 100:
             raise ValueError(
-                'speed must be between 10 and 100'
+                'speed must be between 1 and 100'
             )
 
         self.switch_fan_mode(auto=False)
